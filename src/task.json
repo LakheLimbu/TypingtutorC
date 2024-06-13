@@ -1,0 +1,97 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Clean Typing Tutor",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-f",
+                "typing_tutor"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Typing Tutor",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "main.cpp",
+                "database.cpp",
+                "typing_tutor.cpp",
+                "-o",
+                "typing_tutor",
+                "-lsqlite3"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "dependsOn": "Clean Typing Tutor",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Generated task to build Typing Tutor application"
+        },
+        {
+            "label": "Run Typing Tutor",
+            "type": "shell",
+            "command": "${workspaceFolder}/typing_tutor",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": "Build Typing Tutor",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Watch Typing Tutor",
+            "type": "shell",
+            "command": "inotifywait",
+            "args": [
+                "-e",
+                "close_write,moved_to,create",
+                "-m",
+                "${workspaceFolder}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "detail": "Watches for file changes and triggers build."
+        }
+    ]
+}
